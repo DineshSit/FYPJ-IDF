@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/pic2">
+
+    <TextView
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Review"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Location"
+        android:textColor="#373434"
+        android:textSize="18sp" />
+
+<!--    <Spinner-->
+<!--        android:id="@+id/spinnerLoc"-->
+<!--        android:layout_width="222dp"-->
+<!--        android:layout_height="43dp"-->
+<!--        android:text="Select"-->
+<!--        tools:listitem="@android:layout/simple_spinner_dropdown_item"/>-->
+
+    <ListView
+        android:id="@+id/ListViewLoc"
+        android:layout_width="match_parent"
+        android:layout_height="93dp"
+        tools:listitem="@android:layout/simple_list_item_1" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rating"
+        android:textColor="#1E1C1C"
+        android:textSize="18sp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:numStars="5" />
+
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="picture"
+        android:textStyle="bold" />
+
+
+    <com.stfalcon.multiimageview.MultiImageView
+        android:layout_gravity="center"
+        android:id="@+id/multiImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Feedback"
+        android:textColor="#3E3B3B"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/FeedMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Share details of own experience at this place"
+        android:textColor="@color/colorAccent" />
+
+    <Button
+        android:id="@+id/sendFeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post"
+        android:textStyle="bold" />
+
+</LinearLayout>
