@@ -3,11 +3,16 @@ package com.navigine.naviginedemo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.renderscript.Sampler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import androidx.appcompat.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -139,5 +144,34 @@ public class DisplayReview extends AppCompatActivity {
             }
         });*/
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.listsearch, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.item_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<String> userslist = new ArrayList<>();
+                        for (String user: list ){
+                            if(user.toLowerCase().contains(newText.toLowerCase())){
+                                userslist.add(user);
+                            }
+                        }
+                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(DisplayReview.this, android.R.layout.simple_list_item_1, userslist);
+                        listView.setAdapter(adapter);
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
     }
