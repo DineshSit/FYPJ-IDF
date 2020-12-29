@@ -102,7 +102,7 @@ public class DisplayReview extends AppCompatActivity {
                     //list.add(reviewClass.getRating() + "Stars" + "  " +reviewClass.getFeedback().toString());
                     list.add("Place:" + reviewClass.getLocotion() +  "\n" +
                             "Stars:" + reviewClass.getRating() +  "\n"
-                            + reviewClass.getFeedback());
+                            + reviewClass.getFeedback() );
                 }
                 listView.setAdapter(adapter);
             }

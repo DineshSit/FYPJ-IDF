@@ -68,10 +68,10 @@ public class WriteReview extends AppCompatActivity {
         //mgotoFindMeetup=findViewById(R.id.tvGoToFindMeetUp);
         mDebug=findViewById(R.id.tvDebug);
         ListView Lv=findViewById(R.id.ListView);
-        //mSetting=findViewById(R.id.tvSetting);
+        mSetting=findViewById(R.id.tvSetting);
         //mBtnShareLocation=findViewById(R.id.btnShareLocation);
 
-        mRecommendLocation=findViewById(R.id.btnRecommend);
+       // mRecommendLocation=findViewById(R.id.btnRecommend);
 //search
         SharedPreferences sp=getApplicationContext().getSharedPreferences("MyUserProfile", Context.MODE_PRIVATE);
         final String phoneNumber=sp.getString("phoneNumber","");

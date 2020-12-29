@@ -107,6 +107,7 @@ public class Rating1 extends AppCompatActivity {
 
     MultiImageView multiImageView;
     private Uri imageUri;
+    private  String pic1;
     List<Uri> imageUriList;
     boolean isPermissionGranter;
 
@@ -234,6 +235,7 @@ public class Rating1 extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                     }
+
 
 
                     database = FirebaseDatabase.getInstance();

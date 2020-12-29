@@ -59,9 +59,9 @@ TextView mTest,mgotoFindMeetup,mDebug;
         mDebug=findViewById(R.id.tvDebug);
         ListView Lv=findViewById(R.id.ListView);
         mSetting=findViewById(R.id.tvSetting);
-        mBtnShareLocation=findViewById(R.id.btnShareLocation);
+        //mBtnShareLocation=findViewById(R.id.btnShareLocation);
 
-        mRecommendLocation=findViewById(R.id.btnRecommend);
+        //mRecommendLocation=findViewById(R.id.btnRecommend);
 //search
         SharedPreferences sp=getApplicationContext().getSharedPreferences("MyUserProfile", Context.MODE_PRIVATE);
         final String username=sp.getString("username","");
@@ -113,20 +113,20 @@ mSetting.setOnClickListener(new View.OnClickListener() {
     }
 });
 
-        mBtnShareLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reference=dB.getReference("users");
-                reference.child(username).child("location").setValue(setLocation);
-            }
-        });
-mRecommendLocation.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-
-    }
-});
+//        mBtnShareLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                reference=dB.getReference("users");
+//                reference.child(username).child("location").setValue(setLocation);
+//            }
+//        });
+//mRecommendLocation.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View v) {
+//
+//
+//    }
+//});
 
 
 
