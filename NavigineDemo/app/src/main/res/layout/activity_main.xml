@@ -102,7 +102,7 @@
                     android:layout_width="99dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/greenround"
+                    android:background="@drawable/redround"
                     android:fontFamily="@font/hammersmith_one"
                     android:text="MEET UP"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
