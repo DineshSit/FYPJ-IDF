@@ -16,7 +16,7 @@ public class reviews extends AppCompatActivity {
 
         browse = findViewById(R.id.btnBrowseReview);
         post = findViewById(R.id.btnPostReview);
-        azure = findViewById(R.id.addPhotoBTN);
+        //azure = findViewById(R.id.addPhotoBTN);
         browseP = findViewById(R.id.insertpicBTN);
 
         // direct to post a review
@@ -35,12 +35,12 @@ public class reviews extends AppCompatActivity {
             }
         });
 
-        azure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), PicActivity.class));
-            }
-        });
+//        azure.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), PicActivity.class));
+//            }
+//        });
 
         browseP.setOnClickListener(new View.OnClickListener() {
             @Override
