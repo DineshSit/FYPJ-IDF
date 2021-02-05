@@ -301,9 +301,11 @@ public class SearchPage extends Activity {
 
 //        CHANGE YOUR FLOOR LEVEL HERE!
         settings=this.getSharedPreferences("FloorPref",0);
-        int newfloor = settings.getInt("Floor",0);
-        mCurrentSubLocationIndex = newfloor;
+        this.MyFloor = settings.getInt("Floor",0);
+        mCurrentSubLocationIndex = MyFloor;
 
+        Log.i(TAG, "SearchPage#MyFloor " + MyFloor);
+        Log.i(TAG, "SearchPage#mCurrentSubLocationIndex " + mCurrentSubLocationIndex);
         SubLocation subLoc = mLocation.getSubLocations().get(mCurrentSubLocationIndex);
 
 
@@ -381,6 +383,7 @@ public class SearchPage extends Activity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("Position1", text1);
             intent.putExtra("Position2", text2);
+            intent.putExtra("SelectedLevel", MyFloor);
             startActivity(intent);
         }
         else{
@@ -404,6 +407,8 @@ public class SearchPage extends Activity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("Position1", text1);
             intent.putExtra("Position2", text2);
+            intent.putExtra("SelectedLevel", MyFloor);
+            //Log.i(TAG, "putting extra");
             startActivity(intent);
         }
 

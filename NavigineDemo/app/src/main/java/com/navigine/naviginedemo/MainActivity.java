@@ -861,6 +861,9 @@ requestCameraPermission();
     }
 
     private boolean loadMap() {
+        // TODO
+
+
       if (mNavigation == null) {
         Log.e(TAG, "Can't load map! Navigine SDK is not available!");
         return false;
@@ -916,6 +919,14 @@ requestCameraPermission();
     VenueList.addAll(NewVenue);
 
      */
+        if (getIntent().hasExtra("SelectedLevel")) {
+
+
+            //Log.i(TAG, "SelectedLevel" + getIntent().getIntExtra("SelectedLevel", -1));
+           loadSubLocation(getIntent().getIntExtra("SelectedLevel", -1));
+
+
+        }
 
 
       text1 = getIntent().getStringExtra("Position1");
@@ -923,14 +934,17 @@ requestCameraPermission();
       if (text1 != "---Select---") {
         Search();
       }
+
+
+
         //QR Code Listener problem
         //Get Qr Data
         SharedPreferences sp=getApplicationContext().getSharedPreferences("MyUserProfile", Context.MODE_PRIVATE);
         String QrData=sp.getString("QrData","");
-if(QrData!="NotSet")
-{Toast.makeText(this," Location "+QrData,Toast.LENGTH_SHORT).show();
-    Searchv2(QrData);
-}
+        if(QrData!="NotSet")
+        {Toast.makeText(this," Location "+QrData,Toast.LENGTH_SHORT).show();
+            Searchv2(QrData);
+        }
 
 
 
@@ -1107,9 +1121,9 @@ if(QrData!="NotSet")
     public void Search() {
       //text = "L306";
 
-      SubLocation subLoc = mLocation.getSubLocations().get(0);
+      SubLocation subLoc = mLocation.getSubLocations().get(mCurrentSubLocationIndex);
 
-      for (int i = 0; i < subLoc.getVenues().size(); ++i) {
+      for (int i = mCurrentSubLocationIndex; i < subLoc.getVenues().size(); ++i) {
         Venue ven = subLoc.getVenues().get(i);
         String venname = subLoc.getName();
         Log.d(TAG, String.format(Locale.ENGLISH, " %s == %s ", ven.getName(), text1));
