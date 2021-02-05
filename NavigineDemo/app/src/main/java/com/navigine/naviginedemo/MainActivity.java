@@ -1155,9 +1155,9 @@ requestCameraPermission();
     public void onNextRoute(View v) {
       //text = "L306";
       Log.d(TAG, String.format(Locale.ENGLISH, text1));
-      SubLocation subLoc = mLocation.getSubLocations().get(0);
+      SubLocation subLoc = mLocation.getSubLocations().get(mCurrentSubLocationIndex);
 
-      for (int i = 0; i < subLoc.getVenues().size(); ++i) {
+      for (int i = mCurrentSubLocationIndex; i < subLoc.getVenues().size(); ++i) {
         Venue ven = subLoc.getVenues().get(i);
         Log.d(TAG, String.format(Locale.ENGLISH, " %s == %s ", ven.getName(), text1));
 
