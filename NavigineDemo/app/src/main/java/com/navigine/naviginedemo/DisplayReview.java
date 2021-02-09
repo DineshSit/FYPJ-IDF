@@ -1,13 +1,21 @@
 package com.navigine.naviginedemo;
 
+import android.content.ClipData;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.renderscript.Sampler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -16,13 +24,19 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.stfalcon.multiimageview.MultiImageView;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +57,8 @@ public class DisplayReview extends AppCompatActivity {
     ReviewClass reviewClass;
     static final String TAG = "NAVIGINE.Demo";
     private Uri image3;
+ 
+    FirebaseListAdapter adapter1;
 
 
     //for recycler view
@@ -96,28 +112,54 @@ public class DisplayReview extends AppCompatActivity {
         ref = database.getReference("Reviews");
         list = new ArrayList<>();
 
+
 //        final InputStream imageStream = getContentResolver().openInputStream(this.image3);
 //        final int imageLength = imageStream.available();
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-        ref.addValueEventListener(new ValueEventListener() {
+//        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot ds : snapshot.getChildren()) {
+//                    reviewClass = ds.getValue(ReviewClass.class);
+//                    //list.add(reviewClass.getRating() + "Stars" + "  " +reviewClass.getFeedback().toString());
+//                    list.add("Place:" + reviewClass.getLocotion() +  "\n" +
+//                            "Stars:" + reviewClass.getRating() +  "\n"
+//                            + reviewClass.getFeedback() );
+//                }
+//                listView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        Query query = ref;
+        FirebaseListOptions<ReviewClass> options = new FirebaseListOptions.Builder<ReviewClass>()
+                .setLayout(R.layout.item_layout)
+
+                .setQuery(query,ReviewClass.class)
+                 .build();
+
+        adapter1 = new FirebaseListAdapter(options) {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    reviewClass = ds.getValue(ReviewClass.class);
-                    //list.add(reviewClass.getRating() + "Stars" + "  " +reviewClass.getFeedback().toString());
-                    list.add("Place:" + reviewClass.getLocotion() +  "\n" +
-                            "Stars:" + reviewClass.getRating() +  "\n"
-                            + reviewClass.getFeedback() );
-                }
-                listView.setAdapter(adapter);
+            protected void populateView(@NonNull View v, @NonNull Object model, int position) {
+                TextView  place = v.findViewById(R.id.place);
+                TextView  star = v.findViewById(R.id.star);
+                TextView   para = v.findViewById(R.id.para);
+                ImageView  image = v.findViewById(R.id.pic3);
+
+                ReviewClass review = (ReviewClass) model;
+                place.setText("Venue: " + review.getLocotion());
+                star.setText("Rating: " +Float.toString(review.getRating()));
+                para.setText("Comment: " +review.getFeedback().toString());
+
+                Picasso.get().load(review.getPic()).into(image);
+
+
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+        };
+        listView.setAdapter(adapter1);
 
         //RECYCLER VIEW
         /*recyclerView = findViewById(R.id.recyclerFdbs);
@@ -145,6 +187,23 @@ public class DisplayReview extends AppCompatActivity {
         });*/
 
     }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        adapter1.startListening();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        adapter1.stopListening();
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){

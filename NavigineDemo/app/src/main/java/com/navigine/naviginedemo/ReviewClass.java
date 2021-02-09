@@ -7,15 +7,15 @@ public class ReviewClass {
     private String locotion;
     private float rating;
     private String feedback;
-    //private Uri image1;
+    private String pic;
     public ReviewClass (){
     }
 
-    public ReviewClass(String locotion, float rating, String feedback ){
+    public ReviewClass(String locotion, float rating, String feedback , String pic){
         this.locotion =locotion;
         this.rating=rating;
         this.feedback=feedback;
-        //this.image1 = image1;
+        this.pic = pic;
     }
 
     public String getLocotion() {
@@ -41,6 +41,10 @@ public class ReviewClass {
     public void setFeedback(String feedback) {
         this.feedback = feedback;
     }
+
+    public  String getPic() {return pic;}
+
+    public void setPic(String pic) {this.pic = pic;}
 
 //    public  Uri getImage1() {
 //        return image1;

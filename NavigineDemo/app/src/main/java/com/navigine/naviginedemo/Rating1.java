@@ -240,7 +240,7 @@ public class Rating1 extends AppCompatActivity {
 
                     database = FirebaseDatabase.getInstance();
                     ref = database.getReference("Reviews");
-                    ReviewClass reviewclass = new ReviewClass(setLocation1, rate, fb);
+                    ReviewClass reviewclass = new ReviewClass(setLocation1, rate, fb, imageUri.toString());
                     ref.child(String.valueOf(maxid + 1)).setValue(reviewclass);
 
                     spref = getSharedPreferences("MyUserProfile", MODE_PRIVATE);
@@ -248,6 +248,7 @@ public class Rating1 extends AppCompatActivity {
                     editor.putString("location", setLocation1);
                     editor.putFloat("rating", rate);
                     editor.putString("feedback", fb);
+                    editor.putString("pic",imageUri.toString());
                     editor.commit();
 
                 }

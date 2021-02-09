@@ -26,6 +26,7 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 
+
 import com.google.firebase.database.DatabaseReference;
 import com.navigine.naviginesdk.*;
 
@@ -665,7 +666,7 @@ requestCameraPermission();
         if (mSelectedVenueRect != null && mSelectedVenueRect.contains(x, y)) {
           mTargetVenue = mSelectedVenue;
           mTargetPoint = null;
-          mNavigation.setTarget(new LocationPoint(mLocation.getId(), subLoc.getId(), mTargetVenue.getX(), mTargetVenue.getY()));
+          mNavigation.setTarget(new LocationPoint(mLocation.getId(), subLoc.getId(), mTargetVenue.getX(),  mTargetVenue.getY()));
           mBackView.setVisibility(View.VISIBLE);
         }
         cancelVenue();
@@ -1352,6 +1353,9 @@ requestCameraPermission();
 
               paint.setARGB(255, 255, 255, 255);
               canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+
+              //canvas.drawPicture(mSelectedVenue.getImage());
+
 
           }
       }

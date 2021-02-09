@@ -3,30 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="20dp"
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/place"
-        android:text="Place: Toilet"
-        android:textSize="20sp"
-        android:textColor="#000000" />
+        android:id="@+id/place" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/star"
-        android:text="Stars: 10 stars"
-        android:textSize="20sp"
-        android:textColor="#000000" />
+        android:id="@+id/star" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/para"
-        android:text="Comment: smelly"
-        android:textSize="20sp"
-        android:textColor="#000000" />
+        android:id="@+id/para" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/pic3"/>
 </LinearLayout>
