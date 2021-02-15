@@ -4,11 +4,13 @@ import android.Manifest;
 import android.app.*;
 import android.content.*;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.*;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.*;
 import android.se.omapi.Session;
+import android.util.Base64;
 import android.view.*;
 import android.view.View.*;
 import android.view.animation.Animation;
@@ -1166,6 +1168,7 @@ requestCameraPermission();
           Log.d(TAG, String.format(Locale.ENGLISH, "Got it"));
           Log.d(TAG, String.format(Locale.ENGLISH, "Click at (%.2f, %.2f)", ven.getX(), ven.getY()));
           //
+
           handleClick(ven.getX(), ven.getY());
           mSelectedVenue = subLoc.getVenues().get(i);
           mTargetVenue = mSelectedVenue;
@@ -1246,7 +1249,7 @@ requestCameraPermission();
 //          imageView.setBackgroundResource(R.drawable.pin);
 //
 //        addView(imageView, T.x, T.y-3);
-
+//
 //        canvas.drawBitmap(mVenueBitmap, null, new RectF(T.x, T.y - 3), paint);
 
         final String text = "Make route";
@@ -1341,22 +1344,99 @@ requestCameraPermission();
               final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
               final float textWidth = paint.measureText(mSelectedVenue.getName());
 
-              final float h  = 50 * dp;
+              final float h  = 100 * dp;
+              final float h1  = 50 * dp;
+              final float w1  = Math.max(120 * dp, textWidth + h1/2);
               final float w  = Math.max(120 * dp, textWidth + h/2);
               final float x0 = T.x;
               final float y0 = T.y - 50 * dp;
 
-              mSelectedVenueRect.set(x0 - w/2, y0 - h/2, x0 + w/2, y0 + h/2);
+              mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
 
               paint.setColor(venueColor);
-              canvas.drawRoundRect(mSelectedVenueRect, h/2, h/2, paint);
+              canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
+              String v1 = "L309";
+              String v2 = "L312";
+              String v3 = "L310";
+              String v4 = "L311";
+              String v5 = "L313";
+              String v6 = "L314";
+              String v7 = "L306";
+              String v8 = "L308";
 
-              paint.setARGB(255, 255, 255, 255);
-              canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+              if (mSelectedVenue.getName().toString().equals(v1)) {
 
-              //canvas.drawPicture(mSelectedVenue.getImage());
+                  Resources res = getResources();
+                  Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.idf5);
+                  canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+
+              }
+              if(mSelectedVenue.getName().toString().equals(v2)){
+                  Resources res = getResources();
+                  Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l312);
+                  canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+              }
+              if(mSelectedVenue.getName().toString().equals(v3)){
+                  Resources res = getResources();
+                  Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l310);
+                  canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+              }
+              if(mSelectedVenue.getName().toString().equals(v4)){
+                  Resources res = getResources();
+                  Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l311);
+                  canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+              }
+              if(mSelectedVenue.getName().toString().equals(v5)){
+                  Resources res = getResources();
+                  Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l313);
+                  canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+              }
+              if(mSelectedVenue.getName().toString().equals(v6)){
+                  Resources res = getResources();
+                  Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l314);
+                  canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+              }
+              if(mSelectedVenue.getName().toString().equals(v7)){
+                  Resources res = getResources();
+                  Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l306);
+                  canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+              }
+              if(mSelectedVenue.getName().toString().equals(v8)){
+                  Resources res = getResources();
+                  Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l308);
+                  canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+              }
+
+              else{
+                  paint.setARGB(255, 255, 255, 255);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+
+              }
 
 
+              //addView(imageView, 300, 800);
+
+              //canvas.drawBitmap(bitmap, null, new RectF(x0 - w/2, y0 - h/2, x0 + w/2, y0 + h/2), paint);
+              //Rect rectangle = new Rect(0,0,100,100);
+
+
+//             Canvas canvas1 = new Canvas(bitmap.copy(Bitmap.Config.ARGB_8888, true));
+//
+             // ImageView imageView = (ImageView) findViewById(R.id.imageView3);
+//              String base64String = mSelectedVenue.getImage();
+//              String base64Image = base64String.split(",")[1];
+//
+//              byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+//              Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//
+//              imageView.setImageBitmap(decodedByte);
           }
       }
 

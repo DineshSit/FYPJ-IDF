@@ -44,11 +44,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -75,6 +81,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import com.google.firebase.database.DatabaseReference;
 import com.stfalcon.multiimageview.MultiImageView;
@@ -107,6 +114,8 @@ public class Rating1 extends AppCompatActivity {
 
     MultiImageView multiImageView;
     private Uri imageUri;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     private  String pic1;
     List<Uri> imageUriList;
     boolean isPermissionGranter;
@@ -136,6 +145,8 @@ public class Rating1 extends AppCompatActivity {
         ratingbar1 = (RatingBar) findViewById(R.id.ratingBar1);
         SendFeed = (Button) findViewById(R.id.sendFeed);
         //spinner = (Spinner) findViewById(R.id.spinnerLoc);
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         //display list of venues from db on listview
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserProfile", Context.MODE_PRIVATE);
@@ -256,6 +267,26 @@ public class Rating1 extends AppCompatActivity {
         });
     }
 
+   private  void UploadFirebase(){
+        final String randomkey = UUID.randomUUID().toString();
+
+       StorageReference mountainsRef = storageReference.child("image/*" + randomkey);
+
+      mountainsRef.putFile(imageUri)
+              .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                  @Override
+                  public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                      Snackbar.make(findViewById(android.R.id.content),"Image Uploaded", Snackbar.LENGTH_LONG).show();
+                  }
+              })
+              .addOnFailureListener(new OnFailureListener() {
+                  @Override
+                  public void onFailure(@NonNull Exception e) {
+                      Toast.makeText(getApplicationContext(), "Failed to Upload", Toast.LENGTH_LONG).show();
+                  }
+              });
+   }
+
     private void UploadImage(Uri uri) {
         try {
             final InputStream imageStream = getContentResolver().openInputStream(uri);
@@ -331,6 +362,8 @@ public class Rating1 extends AppCompatActivity {
     }
 
 
+
+
     private void askCameraPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
@@ -344,7 +377,7 @@ public class Rating1 extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
 
-
+                UploadFirebase();
                 imageUriList.add(imageUri);
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(Rating1.this.getContentResolver(), imageUri);

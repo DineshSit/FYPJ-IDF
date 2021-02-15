@@ -57,7 +57,7 @@ public class DisplayReview extends AppCompatActivity {
     ReviewClass reviewClass;
     static final String TAG = "NAVIGINE.Demo";
     private Uri image3;
- 
+
     FirebaseListAdapter adapter1;
 
 
@@ -220,8 +220,9 @@ public class DisplayReview extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 ArrayList<String> userslist = new ArrayList<>();
-                        for (String user: list ){
+                        for (String user:list){
                             if(user.toLowerCase().contains(newText.toLowerCase())){
                                 userslist.add(user);
                             }

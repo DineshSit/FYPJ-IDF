@@ -56,6 +56,8 @@
                     app:layout_constraintVertical_bias="0.0" />
 
 
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.navigine.naviginesdk.LocationView>
@@ -111,6 +113,8 @@
 
 
                     android:textSize="18sp" />
+
+
 
                 <Button
 
@@ -242,6 +246,7 @@
             android:paddingRight="10dp"
             android:paddingBottom="10dp">
 
+
             <Button
                 android:id="@+id/Next_destination_button"
                 android:layout_width="30dp"
@@ -265,7 +270,6 @@
 
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -285,6 +289,18 @@
                     android:layout_height="50dp"
                     android:background="@drawable/nextfloor"
                     android:onClick="onNextFloor" />
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView3"-->
+<!--                    android:layout_width="98dp"-->
+<!--                    android:layout_height="68dp"-->
+<!--                    tools:ignore="MissingConstraints"-->
+<!--                    tools:layout_editor_absoluteX="13dp"-->
+<!--                    tools:layout_editor_absoluteY="621dp"-->
+<!--                    tools:srcCompat="@tools:sample/avatars" />-->
+
+
+
             </RelativeLayout>
 
             <!-- Current floor label -->
