@@ -1,17 +1,17 @@
 package com.navigine.naviginedemo;
 
-import android.content.ClipData;
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.renderscript.Sampler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,24 +20,15 @@ import androidx.appcompat.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-import com.stfalcon.multiimageview.MultiImageView;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +43,7 @@ public class DisplayReview extends AppCompatActivity {
     //List<ReviewClass> reviewClass;
     //List<FetchData> fetchData;
     ListView listView;
+    List<FirebaseListAdapter> list1 = new ArrayList<FirebaseListAdapter>();
     ArrayList<String> list;
     ArrayAdapter<String> adapter;
     ReviewClass reviewClass;
@@ -59,6 +51,8 @@ public class DisplayReview extends AppCompatActivity {
     private Uri image3;
 
     FirebaseListAdapter adapter1;
+
+    CustomAdapter customAdapter;
 
 
     //for recycler view
@@ -141,6 +135,7 @@ public class DisplayReview extends AppCompatActivity {
                 .setQuery(query,ReviewClass.class)
                  .build();
 
+
         adapter1 = new FirebaseListAdapter(options) {
             @Override
             protected void populateView(@NonNull View v, @NonNull Object model, int position) {
@@ -159,6 +154,9 @@ public class DisplayReview extends AppCompatActivity {
 
             }
         };
+        //list1.add(adapter1);
+        //customAdapter = new CustomAdapter((List<ReviewClass>) adapter1,this);
+
         listView.setAdapter(adapter1);
 
         //RECYCLER VIEW
@@ -211,7 +209,8 @@ public class DisplayReview extends AppCompatActivity {
         inflater.inflate(R.menu.listsearch, menu);
 
         MenuItem searchItem = menu.findItem(R.id.item_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        //SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -221,17 +220,108 @@ public class DisplayReview extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                ArrayList<String> userslist = new ArrayList<>();
-                        for (String user:list){
-                            if(user.toLowerCase().contains(newText.toLowerCase())){
-                                userslist.add(user);
-                            }
-                        }
-                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(DisplayReview.this, android.R.layout.simple_list_item_1, userslist);
-                        listView.setAdapter(adapter);
+
+
+//                ArrayList<String> userslist = new ArrayList<>();
+//                        for (String user:list){
+//                            if(user.toLowerCase().contains(newText.toLowerCase())){
+//                                userslist.add(user);
+//                            }
+//                        }
+//                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(DisplayReview.this, android.R.layout.simple_list_item_1, userslist);
+//                        listView.setAdapter(adapter);
                 return true;
             }
         });
-        return super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.item_search ){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public class CustomAdapter extends BaseAdapter implements Filterable {
+        private List<ReviewClass>reviewClassList;
+        private List<ReviewClass>reviewClassListFiltered;
+        private Context context;
+
+        public CustomAdapter(List<ReviewClass> reviewClassList, Context context) {
+            this.reviewClassList = reviewClassList;
+            this.reviewClassListFiltered = reviewClassList;
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return reviewClassListFiltered.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = getLayoutInflater().inflate(R.layout.item_layout,null);
+
+            ImageView imageView = view.findViewById(R.id.pic3);
+            TextView place = view.findViewById(R.id.place);
+            TextView star = view.findViewById(R.id.star);
+            TextView para = view.findViewById(R.id.para);
+
+            place.setText("Venue: " + reviewClassListFiltered.get(position).getLocotion());
+            star.setText("Rating: " +Float.toString(reviewClassListFiltered.get(position).getRating()));
+            para.setText("Comment: " +reviewClassListFiltered.get(position).getFeedback().toString());
+
+            Picasso.get().load(reviewClassListFiltered.get(position).getPic()).into(imageView);
+            return view;
+        }
+
+        @Override
+        public Filter getFilter() {
+            Filter filter = new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults filterResults = new FilterResults();
+                    if(constraint == null || constraint.length() == 0 ){
+                        filterResults.count = reviewClassList.size();
+                        filterResults.values = reviewClassList;
+                    }else{
+                       String searchStr = constraint.toString().toLowerCase();
+                       List<ReviewClass> resultData = new ArrayList<>();
+                       for(ReviewClass reviewClass:reviewClassList){
+                           if(reviewClass.getLocotion().contains(searchStr) || reviewClass.getFeedback().contains(searchStr)){
+                               resultData.add(reviewClass);
+                           }
+                           filterResults.count = resultData.size();
+                           filterResults.values = resultData;
+
+
+                       }
+                    }
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                        reviewClassListFiltered = (List<ReviewClass>)results.values;
+
+                        notifyDataSetChanged();
+                }
+            };
+            return filter;
+        }
     }
     }
