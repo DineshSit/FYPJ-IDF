@@ -52,7 +52,7 @@ public class DisplayReview extends AppCompatActivity {
 
     FirebaseListAdapter adapter1;
 
-    CustomAdapter customAdapter;
+
 
 
     //for recycler view
@@ -213,12 +213,14 @@ public class DisplayReview extends AppCompatActivity {
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String s) {
+                SearchBar(s);
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String s) {
+                SearchBar(s);
 
 
 
@@ -230,98 +232,48 @@ public class DisplayReview extends AppCompatActivity {
 //                        }
 //                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(DisplayReview.this, android.R.layout.simple_list_item_1, userslist);
 //                        listView.setAdapter(adapter);
-                return true;
+                return false;
             }
         });
-        return true;
+        return super.onCreateOptionsMenu(menu) ;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.item_search ){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void SearchBar(String s)
+    {
+        Query query = database.getReference("Reviews").orderByChild("locotion").startAt(s).endAt(s+"\uf8ff");
+        FirebaseListOptions<ReviewClass> options = new FirebaseListOptions.Builder<ReviewClass>()
+                .setLayout(R.layout.item_layout)
+
+                .setQuery(query,ReviewClass.class)
+                .build();
+
+
+        adapter1 = new FirebaseListAdapter(options) {
+            @Override
+            protected void populateView(@NonNull View v, @NonNull Object model, int position) {
+                TextView  place = v.findViewById(R.id.place);
+                TextView  star = v.findViewById(R.id.star);
+                TextView   para = v.findViewById(R.id.para);
+                ImageView  image = v.findViewById(R.id.pic3);
+
+                ReviewClass review = (ReviewClass) model;
+                place.setText("Venue: " + review.getLocotion());
+                star.setText("Rating: " +Float.toString(review.getRating()));
+                para.setText("Comment: " +review.getFeedback().toString());
+
+                Picasso.get().load(review.getPic()).into(image);
+
+
+            }
+        };
+
+        adapter1.startListening();
+        listView.setAdapter(adapter1);
+
+
     }
 
 
-    public class CustomAdapter extends BaseAdapter implements Filterable {
-        private List<ReviewClass>reviewClassList;
-        private List<ReviewClass>reviewClassListFiltered;
-        private Context context;
-
-        public CustomAdapter(List<ReviewClass> reviewClassList, Context context) {
-            this.reviewClassList = reviewClassList;
-            this.reviewClassListFiltered = reviewClassList;
-            this.context = context;
-        }
-
-        @Override
-        public int getCount() {
-            return reviewClassListFiltered.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.item_layout,null);
-
-            ImageView imageView = view.findViewById(R.id.pic3);
-            TextView place = view.findViewById(R.id.place);
-            TextView star = view.findViewById(R.id.star);
-            TextView para = view.findViewById(R.id.para);
-
-            place.setText("Venue: " + reviewClassListFiltered.get(position).getLocotion());
-            star.setText("Rating: " +Float.toString(reviewClassListFiltered.get(position).getRating()));
-            para.setText("Comment: " +reviewClassListFiltered.get(position).getFeedback().toString());
-
-            Picasso.get().load(reviewClassListFiltered.get(position).getPic()).into(imageView);
-            return view;
-        }
-
-        @Override
-        public Filter getFilter() {
-            Filter filter = new Filter() {
-                @Override
-                protected FilterResults performFiltering(CharSequence constraint) {
-                    FilterResults filterResults = new FilterResults();
-                    if(constraint == null || constraint.length() == 0 ){
-                        filterResults.count = reviewClassList.size();
-                        filterResults.values = reviewClassList;
-                    }else{
-                       String searchStr = constraint.toString().toLowerCase();
-                       List<ReviewClass> resultData = new ArrayList<>();
-                       for(ReviewClass reviewClass:reviewClassList){
-                           if(reviewClass.getLocotion().contains(searchStr) || reviewClass.getFeedback().contains(searchStr)){
-                               resultData.add(reviewClass);
-                           }
-                           filterResults.count = resultData.size();
-                           filterResults.values = resultData;
 
 
-                       }
-                    }
-                    return filterResults;
-                }
-
-                @Override
-                protected void publishResults(CharSequence constraint, FilterResults results) {
-                        reviewClassListFiltered = (List<ReviewClass>)results.values;
-
-                        notifyDataSetChanged();
-                }
-            };
-            return filter;
-        }
-    }
     }
