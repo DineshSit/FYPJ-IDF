@@ -1339,22 +1339,23 @@ requestCameraPermission();
 
           if (mSelectedVenue != null)
           {
+              // WITH IMAGE
 
 
-              final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
-              final float textWidth = paint.measureText(mSelectedVenue.getName());
-
-              final float h  = 100 * dp;
-              final float h1  = 50 * dp;
-              final float w1  = Math.max(120 * dp, textWidth + h1/2);
-              final float w  = Math.max(120 * dp, textWidth + h/2);
-              final float x0 = T.x;
-              final float y0 = T.y - 50 * dp;
-
-              mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
-
-              paint.setColor(venueColor);
-              canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
+//              final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+//              final float textWidth = paint.measureText(mSelectedVenue.getName());
+//
+//              final float h  = 50 * dp;
+//              final float h1  = 50 * dp;
+//              final float w1  = Math.max(120 * dp, textWidth + h1/2);
+//              final float w  = Math.max(120 * dp, textWidth + h/2);
+//              final float x0 = T.x;
+//              final float y0 = T.y - 50 * dp;
+//
+//              mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+//
+//              paint.setColor(venueColor);
+//              canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
               String v1 = "L309";
               String v2 = "L312";
               String v3 = "L310";
@@ -1365,49 +1366,162 @@ requestCameraPermission();
               String v8 = "L308";
 
               if (mSelectedVenue.getName().toString().equals(v1)) {
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
 
                   Resources res = getResources();
                   Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.idf5);
                   canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
+                  canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
 
               }
               if(mSelectedVenue.getName().toString().equals(v2)){
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
                   Resources res = getResources();
                   Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l312);
                   canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
                   canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
               }
               if(mSelectedVenue.getName().toString().equals(v3)){
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
                   Resources res = getResources();
                   Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l310);
                   canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
                   canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
               }
               if(mSelectedVenue.getName().toString().equals(v4)){
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
                   Resources res = getResources();
                   Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l311);
                   canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
                   canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
               }
               if(mSelectedVenue.getName().toString().equals(v5)){
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
                   Resources res = getResources();
                   Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l313);
                   canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
                   canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
               }
               if(mSelectedVenue.getName().toString().equals(v6)){
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
                   Resources res = getResources();
                   Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l314);
                   canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
                   canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
               }
               if(mSelectedVenue.getName().toString().equals(v7)){
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
                   Resources res = getResources();
                   Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l306);
                   canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
                   canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
               }
               if(mSelectedVenue.getName().toString().equals(v8)){
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
                   Resources res = getResources();
                   Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.l308);
                   canvas.drawBitmap(bitmap, null, new RectF(x0 - w, y0 - h, x0 + w, y0 + h), paint);
@@ -1415,10 +1529,42 @@ requestCameraPermission();
               }
 
               else{
+                  final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+                  final float textWidth = paint.measureText(mSelectedVenue.getName());
+
+                  final float h  = 50 * dp;
+                  final float h1  = 50 * dp;
+                  final float w1  = Math.max(120 * dp, textWidth + h1/2);
+                  final float w  = Math.max(120 * dp, textWidth + h/2);
+                  final float x0 = T.x;
+                  final float y0 = T.y - 50 * dp;
+
+                  mSelectedVenueRect.set(x0 - w1/2, y0 - h1/2, x0 + w1/2, y0 + h1/2);
+
+                  paint.setColor(venueColor);
+                  canvas.drawRoundRect(mSelectedVenueRect, h1/2, h1/2, paint);
                   paint.setARGB(255, 255, 255, 255);
                   canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
 
               }
+
+// ORIGINAL
+//              final PointF T = mLocationView.getScreenCoordinates(mSelectedVenue.getX(), mSelectedVenue.getY());
+//              final float textWidth = paint.measureText(mSelectedVenue.getName());
+//
+//              final float h  = 50 * dp;
+//              final float w  = Math.max(120 * dp, textWidth + h/2);
+//              final float x0 = T.x;
+//              final float y0 = T.y - 50 * dp;
+//
+//              mSelectedVenueRect.set(x0 - w/2, y0 - h/2, x0 + w/2, y0 + h/2);
+//
+//              paint.setColor(venueColor);
+//              canvas.drawRoundRect(mSelectedVenueRect, h/2, h/2, paint);
+//
+//              paint.setARGB(255, 255, 255, 255);
+//              canvas.drawText(mSelectedVenue.getName(), x0 - textWidth/2, y0 + textSize/4, paint);
+
 
 
               //addView(imageView, 300, 800);
